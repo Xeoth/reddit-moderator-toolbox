@@ -4,10 +4,10 @@
     "author": "toolbox team",
     "short_name": "toolbox",
     "description": "A set of tools to be used by moderators on reddit in order to make their jobs easier.",
-    "version": "5.5.2",
-    "version_name": "5.5.2: \"Witty Wildebeest\"",
+    "version": "5.5.4",
+    "version_name": "5.5.4: \"Witty Wildebeest\"",
     "incognito": "split",
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "yes@jetpack",
             "strict_min_version": "57.0"
@@ -56,6 +56,7 @@
                 "https://*.reddit.com/framedGild/*",
                 "https://*.reddit.com/framedModal/*",
                 "https://*.reddit.com/chat/*",
+                "https://*.reddit.com/account/sso/*",
                 "https://ads.reddit.com/*",
                 "https://*.reddit.com/*.json",
                 "https://*.reddit.com/*.json?*",
@@ -100,6 +101,7 @@
                 "https://*.reddit.com/framedGild/*",
                 "https://*.reddit.com/framedModal/*",
                 "https://*.reddit.com/chat/*",
+                "https://*.reddit.com/account/sso/*",
                 "https://ads.reddit.com/*",
                 "https://*.reddit.com/*.json",
                 "https://*.reddit.com/*.json?*",
