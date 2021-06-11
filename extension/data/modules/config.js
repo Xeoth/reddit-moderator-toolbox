@@ -277,24 +277,19 @@ function tbconfig () {
                     },
                     {
                         title: 'ban macro',
-                        tooltip: 'pre-fill the mod button ban note and reason with tekst and tokens..',
+                        tooltip: 'pre-fill the mod button ban note and reason with text and tokens..',
                         content: `
-                    <table>
-                    <td>
-                        Ban note:
-                    </td><td>
-                        <input class="banNote tb-input" type="text" value="${(configData.banMacros && configData.banMacros.banNote ? configData.banMacros.banNote : '')}"/>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                       Ban message:
-                    </td><td>
-                       <textarea class="tb-input banMessage">${(configData.banMacros && configData.banMacros.banMessage ? configData.banMacros.banMessage : '')}</textarea>
-                    </td>
-                    </tr>
-                </table>`,
-                        footer: '<input class="save-ban-macro tb-action-button" type="button" value="Save ban macro">',
+                        <a href="javascript:;" id="tb-add-ban-macro" class="tb-general-button"><i class="tb-icons">${TBui.icons.addCircle}</i> Add new ban macro</a>
+                        <div id="tb-add-ban-macro-form">
+                        <input type="text" class="tb-input ban-macro-title" placeholder="ban macro title" /><br>
+                        <textarea class="tb-input edit-area" placeholder="ban macro text"></textarea><br>
+                        <input type="number" class="tb-input ban-macro-length" placeholder="length (days)" min="0" max="999" /><br>
+                        <input type="text" class="tb-input" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
+                        <input class="save-new-macro tb-action-button" type="button" value="Save new macro"><input class="cancel-new-macro tb-action-button" type="button" value="Cancel adding macro">
+                        </div>
+                        <hr>
+                        <table id="tb-ban-macros-list"></table>
+                        `,
                     },
                 ],
                 [], // extra header buttons
@@ -825,6 +820,10 @@ function tbconfig () {
                 });
             }
         }
+
+        // function banMacrosContent() {
+        //     config
+        // }
 
         // Now we have all our data and the functions in place to use it, let's use it!
 
@@ -1667,6 +1666,11 @@ function tbconfig () {
                     postToWiki('toolbox', config, '.import click', true);
                 }
             }
+        });
+
+        $body.on('click', '#tb-add-ban-macro', function () {
+            $(this).hide();
+            $body.find('#tb-add-ban-macro-form').show();
         });
 
         $body.on('click', '.save-ban-macro', () => {

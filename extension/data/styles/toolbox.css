@@ -1800,7 +1800,8 @@ TODO: Find out what this is supposed to fix and put that in the comment instead.
 .mod-toolbox-rd .removal-reason-edit,
 .mod-toolbox-rd #tb-add-removal-reason-form,
 .mod-toolbox-rd .mod-macro-edit,
-.mod-toolbox-rd #tb-add-mod-macro-form
+.mod-toolbox-rd #tb-add-mod-macro-form,
+.mod-toolbox-rd #tb-add-ban-macro-form
 {
     display: none;
 }
