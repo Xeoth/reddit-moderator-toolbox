@@ -285,7 +285,7 @@ function tbconfig () {
                         <textarea class="tb-input edit-area" placeholder="ban macro text"></textarea><br>
                         <input type="number" class="tb-input ban-macro-length" placeholder="length (days)" min="0" max="999" /><br>
                         <input type="text" class="tb-input" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
-                        <input class="save-new-macro tb-action-button" type="button" value="Save new macro"><input class="cancel-new-macro tb-action-button" type="button" value="Cancel adding macro">
+                        <input class="save-new-ban-macro tb-action-button" type="button" value="Save new macro"><input class="cancel-new-ban-macro tb-action-button" type="button" value="Cancel adding macro">
                         </div>
                         <hr>
                         <table id="tb-ban-macros-list"></table>
@@ -1671,6 +1671,12 @@ function tbconfig () {
         $body.on('click', '#tb-add-ban-macro', function () {
             $(this).hide();
             $body.find('#tb-add-ban-macro-form').show();
+        });
+
+        $body.on('click', '.cancel-new-ban-macro', () => {
+            $body.find('#tb-add-ban-macro-form .tb-input').val('');
+            $body.find('#tb-add-ban-macro').show();
+            $body.find('#tb-add-ban-macro-form').hide();
         });
 
         $body.on('click', '.save-ban-macro', () => {
