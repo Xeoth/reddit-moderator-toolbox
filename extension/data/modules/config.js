@@ -282,6 +282,7 @@ function tbconfig () {
                         <a href="javascript:;" id="tb-add-ban-macro" class="tb-general-button"><i class="tb-icons">${TBui.icons.addCircle}</i> Add new ban macro</a>
                         <div id="tb-add-ban-macro-form">
                         <input type="text" class="tb-input ban-macro-title" placeholder="ban macro title" /><br>
+                        <input type="text" class="tb-input ban-macro-title" placeholder="mod note" /><br>
                         <textarea class="tb-input edit-area" placeholder="ban macro text"></textarea><br>
                         <input type="number" class="tb-input ban-macro-length" placeholder="length (days)" min="0" max="999" /><br>
                         <input type="text" class="tb-input" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
@@ -1674,9 +1675,21 @@ function tbconfig () {
         });
 
         $body.on('click', '.cancel-new-ban-macro', () => {
+            // clearing the inputs
             $body.find('#tb-add-ban-macro-form .tb-input').val('');
+            // showing the 'add new ban macro' button and hiding the form
             $body.find('#tb-add-ban-macro').show();
             $body.find('#tb-add-ban-macro-form').hide();
+        });
+
+        $body.on('click', '.save-new-ban-macro', () => {
+            if (!config.banMacros.macros) {
+                config.banMacros.macros = [];
+            }
+
+            // config.banMacros.macros.append({
+
+            // })
         });
 
         $body.on('click', '.save-ban-macro', () => {
