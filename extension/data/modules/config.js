@@ -282,8 +282,8 @@ function tbconfig () {
                         <a href="javascript:;" id="tb-add-ban-macro" class="tb-general-button"><i class="tb-icons">${TBui.icons.addCircle}</i> Add new ban macro</a>
                         <div id="tb-add-ban-macro-form">
                         <input type="text" class="tb-input ban-macro-title" placeholder="ban macro title" /><br>
-                        <input type="text" class="tb-input ban-macro-title" placeholder="mod note" /><br>
-                        <textarea class="tb-input edit-area" placeholder="ban macro text"></textarea><br>
+                        <input type="text" class="tb-input ban-macro-note" placeholder="mod note" /><br>
+                        <textarea class="tb-input edit-area ban-macro-text" placeholder="ban macro text"></textarea><br>
                         <input type="number" class="tb-input ban-macro-length" placeholder="length (days)" min="0" max="999" /><br>
                         <input type="text" class="tb-input" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
                         <input class="save-new-ban-macro tb-action-button" type="button" value="Save new macro"><input class="cancel-new-ban-macro tb-action-button" type="button" value="Cancel adding macro">
@@ -1687,9 +1687,15 @@ function tbconfig () {
                 config.banMacros.macros = [];
             }
 
-            // config.banMacros.macros.append({
+            config.banMacros.macros.push({
+                title: $body.find('#tb-add-ban-macro-form .ban-macro-title').val(),
+                note: $body.find('#tb-add-ban-macro-form .ban-macro-note').val(),
+                text: $body.find('#tb-add-ban-macro-form .ban-macro-text').val(),
+                length: $body.find('#tb-add-ban-macro-form .ban-macro-length').val(),
+            });
 
-            // })
+            postToWiki('toolbox', config, 'updated ban macros', true);
+            TB.ui.textFeedback('New ban macro has been added.', TB.ui.FEEDBACK_POSITIVE);
         });
 
         $body.on('click', '.save-ban-macro', () => {
