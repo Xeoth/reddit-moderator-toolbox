@@ -822,9 +822,14 @@ function tbconfig () {
             }
         }
 
-        // function banMacrosContent() {
-        //     config
-        // }
+        // clearing the content of the "add new ban macro" form
+        function clearBanMacroForm () {
+            // clearing the inputs
+            $body.find('#tb-add-ban-macro-form .tb-input').val('');
+            // showing the 'add new ban macro' button and hiding the form
+            $body.find('#tb-add-ban-macro').show();
+            $body.find('#tb-add-ban-macro-form').hide();
+        }
 
         // Now we have all our data and the functions in place to use it, let's use it!
 
@@ -1674,13 +1679,7 @@ function tbconfig () {
             $body.find('#tb-add-ban-macro-form').show();
         });
 
-        $body.on('click', '.cancel-new-ban-macro', () => {
-            // clearing the inputs
-            $body.find('#tb-add-ban-macro-form .tb-input').val('');
-            // showing the 'add new ban macro' button and hiding the form
-            $body.find('#tb-add-ban-macro').show();
-            $body.find('#tb-add-ban-macro-form').hide();
-        });
+        $body.on('click', '.cancel-new-ban-macro', clearBanMacroForm);
 
         $body.on('click', '.save-new-ban-macro', () => {
             if (!config.banMacros.macros) {
@@ -1696,17 +1695,8 @@ function tbconfig () {
 
             postToWiki('toolbox', config, 'updated ban macros', true);
             TB.ui.textFeedback('New ban macro has been added.', TB.ui.FEEDBACK_POSITIVE);
-        });
 
-        $body.on('click', '.save-ban-macro', () => {
-            config.banMacros = {
-                banNote: $('.banNote').val(),
-                banMessage: $('.banMessage').val(),
-            };
-
-            postToWiki('toolbox', config, 'updated ban macro', true);
-            // Let people know that settings are saved.
-            TB.ui.textFeedback('Ban macro is saved.', TB.ui.FEEDBACK_POSITIVE);
+            clearBanMacroForm();
         });
     }; // TBConfig.init()
 
