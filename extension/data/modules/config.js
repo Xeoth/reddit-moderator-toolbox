@@ -357,16 +357,9 @@ function tbconfig () {
             });
         });
 
-        // First before we do all the cool stuff, let's assume that people at one point also want to close the damn thing.
-
-        $body.on('click', '.tb-config .close', () => {
-            $('.tb-config').remove();
-            $body.css('overflow', 'auto');
-
-            $('.tb-config-color-chooser').remove();
-        });
-
         // now we can play around!
+
+        // #region Functions
 
         // Considering that this is a config page we want to be able to save whatever we do. This function takes care of that.
         function postToWiki (page, data, reason, isJSON, updateAM) {
@@ -398,6 +391,7 @@ function tbconfig () {
             });
         }
 
+        // #region [ Wiki Config ]
         // This function fetches all data for the wiki tabs.
         function wikiTabContent (tabname) {
             let page;
@@ -572,6 +566,9 @@ function tbconfig () {
                 }
             }
         }
+        // #endregion
+
+        // #region [ Usernotes ]
 
         function populateUsernoteTypes () {
             let colors;
@@ -630,6 +627,10 @@ function tbconfig () {
                 $dropdown.append(`<option value="${flair.id}" ${flair.id === defaultOption ? 'selected' : ''}>${flair.text}</option>`);
             });
         }
+
+        // #endregion
+
+        // #region [ Removal Reasons ]
 
         // With this function we'll fetch the removal reasons for editing
         function removalReasonsContent () {
@@ -732,6 +733,10 @@ function tbconfig () {
             }
         }
 
+        // #endregion
+
+        // #region [ Mod Macros ]
+
         // Mod macros are also nice to have!
         function modMacrosContent () {
             if (config.modMacros && config.modMacros.length > 0) {
@@ -822,6 +827,15 @@ function tbconfig () {
             }
         }
 
+        // #endregion
+
+        // #region [ Ban Macros ]
+        function banMacrosContent () {
+            if (config.banMacros.macros) {
+                console.log(config.banMacros.macros);
+            }
+        }
+
         // clearing the content of the "add new ban macro" form
         function clearBanMacroForm () {
             // clearing the inputs
@@ -830,9 +844,23 @@ function tbconfig () {
             $body.find('#tb-add-ban-macro').show();
             $body.find('#tb-add-ban-macro-form').hide();
         }
+        // #endregion
+
+        // #endregion
 
         // Now we have all our data and the functions in place to use it, let's use it!
 
+        // #region Listeners
+
+        // First before we do all the cool stuff, let's assume that people at one point also want to close the damn thing.
+        $body.on('click', '.tb-config .close', () => {
+            $('.tb-config').remove();
+            $body.css('overflow', 'auto');
+
+            $('.tb-config-color-chooser').remove();
+        });
+
+        // #region [ Wiki Config ]
         // toolbox config WIKI tab
         $body.on('click', '.tb-window-tabs .edit_toolbox_config', function () {
             const $this = $(this);
@@ -841,6 +869,9 @@ function tbconfig () {
                 $this.addClass('content-populated');
             }
         });
+        // #endregion
+
+        // #region [ Usernotes ]
 
         // user note config WIKI tab
         $body.on('click', '.tb-window-tabs .edit_user_notes', function () {
@@ -1083,6 +1114,10 @@ function tbconfig () {
             postToWiki('toolbox', config, 'Updated user note types', true);
             TB.ui.textFeedback('User note types saved', TB.ui.FEEDBACK_POSITIVE);
         });
+
+        // #endregion
+
+        // #region [ Removal Reasons ]
 
         // Removal reasons tab
         $body.on('click', '.tb-window-tabs .edit_removal_reasons', function () {
@@ -1393,6 +1428,9 @@ function tbconfig () {
             $body.find('.tb-window-tabs .edit_removal_reasons').removeClass('content-populated');
         });
 
+        // #endregion
+
+        // #region [ Mod Macros ]
         // Mod macros tab is clicked.
         $body.on('click', '.tb-window-tabs .edit_mod_macros', function () {
             const $this = $(this);
@@ -1661,6 +1699,9 @@ function tbconfig () {
             $body.find('#highlightmodmail').prop('checked', false);
         });
 
+        // #endregion
+
+        // #region [ Domain Tags ]
         // When the import button is clicked on the domain tags thing.
         $body.on('click', '.domain_tags .import', async () => {
             const json = await TBApi.getJSON(`/r/${$body.find('.domain_tags .importfrom').val()}/wiki/toolbox.json`);
@@ -1672,6 +1713,12 @@ function tbconfig () {
                     postToWiki('toolbox', config, '.import click', true);
                 }
             }
+        });
+        // #endregion
+
+        // #region [ Ban Macros ]
+        $body.on('click', '.tb-window-tabs .ban_macro', () => {
+            banMacrosContent();
         });
 
         $body.on('click', '#tb-add-ban-macro', function () {
@@ -1698,6 +1745,8 @@ function tbconfig () {
 
             clearBanMacroForm();
         });
+        // #endregion
+        // #endregion
     }; // TBConfig.init()
 
     TB.register_module(self);
